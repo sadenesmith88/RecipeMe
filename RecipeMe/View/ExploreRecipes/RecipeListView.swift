@@ -10,7 +10,7 @@ import SwiftUI
 struct RecipeListView: View {
     
     //current view and children view can access object with env obj
-    @EnvironmentObject  var recipeData: RecipeData
+    @EnvironmentObject  private var recipeData: RecipeData
     let category: MainInformation.Category
     
     //default value for sheet presentation
@@ -23,7 +23,6 @@ struct RecipeListView: View {
     
     
     var body: some View {
-        NavigationView {
             List {
                 //foreach must conforms to a uniquely identifiable id
                 ForEach(recipes) { recipe in
@@ -36,6 +35,8 @@ struct RecipeListView: View {
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
+                        newRecipe = Recipe()
+                        newRecipe.mainInfo.category = recipes[0].mainInfo.category
                         isPresenting = true
                     }, label: {
                         Image(systemName: "plus")
@@ -67,7 +68,7 @@ struct RecipeListView: View {
             
         }
     }
-}
+
 
 
 extension RecipeListView {
@@ -75,12 +76,15 @@ extension RecipeListView {
         recipeData.recipes(for: category)
     }
   
-   
-    
     private var navigationTitle: String {
         "\(category.rawValue) Recipes"
     }
-    
+//    func binding(for recipe: Recipe) -> Binding<Recipe> {
+//        guard let index = recipeData.index(of: recipe) else {
+//            fatalError("Recipe not found")
+//        }
+//        return $recipeData.recipes[index]
+//    }
 }
 
 
@@ -88,8 +92,8 @@ struct RecipeListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             RecipeListView(category: .breakfast)
-                .environmentObject(RecipeData())
-        }
-      
+        }  .environmentObject(RecipeData())
     }
+    
 }
+

@@ -13,17 +13,17 @@ struct Recipe: Identifiable {
     var ingredients: [Ingredient]
     var directions: [Direction]
     
-   
+    //used for user editing purposes
+    init() {
+        self.init(mainInfo: MainInformation(name: "", description: "", author: "", category: .breakfast), ingredients: [], directions: [])
+    }
     
     init(mainInfo: MainInformation, ingredients: [Ingredient], directions: [Direction]) {
         self.mainInfo = mainInfo
         self.ingredients = ingredients
         self.directions = directions
     }
-    //used for user editing purposes
-    init() {
-        self.init(mainInfo: MainInformation(name: "", description: "", author: "", category: .breakfast), ingredients: [], directions: [])
-    }
+   
     
     var isValid: Bool {
         mainInfo.isValid && !ingredients.isEmpty && !directions.isEmpty

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RecipeDetailView: View {
     let recipe: Recipe
+    //tracks when modifyrecipeview sheet should be presented
+    @State private var isPresenting = false
     private let listBackgroundColor = AppColor.background
     private let listTextColor = AppColor.foreground
     var body: some View {
@@ -38,17 +40,37 @@ struct RecipeDetailView: View {
                     ForEach(recipe.directions.indices, id: \.self) { index in
                         let direction = recipe.directions[index]
                         HStack {
-                        Text("\(index + 1). ").bold()
-                        Text("\(direction.isOptional ? "(Optional) " : "")" + "\(direction.description)")
+                            Text("\(index + 1). ").bold()
+                            Text("\(direction.isOptional ? "(Optional) " : "")" + "\(direction.description)")
                         }.foregroundColor(listTextColor)
                     }
                 }.listRowBackground(listBackgroundColor)
             }
         }
         .navigationTitle(recipe.mainInfo.name)
+        //        .toolbar {
+        //            ToolbarItem {
+        //                HStack {
+        //                    Button("Edit") {
+        //                        isPresenting = true
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        .sheet(isPresented: $isPresenting) {
+        //            NavigationView {
+        //                ModifyRecipeView(recipe: $recipe)
+        //                    .toolbar {
+        //                        ToolbarItem(placement: .confirmationAction) {
+        //                            Button("Save") {
+        //                                isPresenting = false
+        //                            }
+        //                        }
+        //                    }
+        //                .navigationTitle("Edit Recipe")
+        //            }
     }
 }
-
 
 struct RecipeDetailView_Previews: PreviewProvider {
     @State static var recipe = Recipe.testRecipes[0]

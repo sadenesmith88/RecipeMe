@@ -12,10 +12,12 @@ struct ModifyRecipeView: View {
     //recipelistview will provide all the info needed to modify recipes
     @Binding var recipe: Recipe
     var body: some View {
-        Button("Fill in the recipe with test data.") {
-            recipe.mainInfo = MainInformation(name: "test", description: "test", author: "test", category: .dinner)
-            recipe.directions = [Direction(description: "test", isOptional: false)]
-            recipe.ingredients = [Ingredient(name: "test", quantity: 1.0, unit: .none)]
+        VStack {
+            Button("Fill in the recipe with test data.") {
+                recipe.mainInfo = MainInformation(name: "test", description: "test", author: "test", category: .breakfast)
+                recipe.directions = [Direction(description: "test", isOptional: false)]
+                recipe.ingredients = [Ingredient(name: "test", quantity: 1.0, unit: .none)]
+            }
         }
     }
 }
