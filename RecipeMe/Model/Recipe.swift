@@ -13,6 +13,8 @@ struct Recipe: Identifiable {
     var ingredients: [Ingredient]
     var directions: [Direction]
     
+   
+    
     init(mainInfo: MainInformation, ingredients: [Ingredient], directions: [Direction]) {
         self.mainInfo = mainInfo
         self.ingredients = ingredients
@@ -21,6 +23,10 @@ struct Recipe: Identifiable {
     //used for user editing purposes
     init() {
         self.init(mainInfo: MainInformation(name: "", description: "", author: "", category: .breakfast), ingredients: [], directions: [])
+    }
+    
+    var isValid: Bool {
+        mainInfo.isValid && !ingredients.isEmpty && !directions.isEmpty
     }
 }
     struct MainInformation {
@@ -36,6 +42,9 @@ struct Recipe: Identifiable {
             case lunch = "Lunch"
             case dinner = "Dinner"
             case dessert = "Dessert"
+        }
+        var isValid: Bool {
+            !name.isEmpty && !description.isEmpty && !author.isEmpty
         }
     }
     //creating struct for these arrays in recipe
