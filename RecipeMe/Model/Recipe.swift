@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Recipe {
+struct Recipe: Identifiable {
+    var id = UUID()
     var mainInfo: MainInformation
     var ingredients: [Ingredient]
     var directions: [Direction]
@@ -22,8 +23,6 @@ struct Recipe {
         self.init(mainInfo: MainInformation(name: "", description: "", author: "", category: .breakfast), ingredients: [], directions: [])
     }
 }
-
-    
     struct MainInformation {
         var name: String
         var description: String
@@ -61,16 +60,7 @@ struct Recipe {
                     
                 }
             }
-            
         }
-        func test() {
-            let myIngredient = Ingredient(name: "Sugar", quantity: 2.0, unit: Ingredient.Unit.tbs)
-            print(myIngredient.description)
-        }
-        
-        
-        
-        
         //enum cases are used to get more specific about the variables created
         enum Unit: String, CaseIterable {
             case oz = "Ounces"
