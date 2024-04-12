@@ -26,7 +26,7 @@ struct RecipeListView: View {
             List {
                 //foreach must conforms to a uniquely identifiable id
                 ForEach(recipes) { recipe in
-                    NavigationLink(recipe.mainInfo.name, destination: RecipeDetailView(recipe: recipe))
+                    NavigationLink(recipe.mainInformation.name, destination: RecipeDetailView(recipe: binding(for: recipe)))
                 }
                 .listRowBackground(listBackgroundColor)
                 .foregroundColor(listTextColor)
@@ -36,7 +36,7 @@ struct RecipeListView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         newRecipe = Recipe()
-                        newRecipe.mainInfo.category = recipes[0].mainInfo.category
+                        newRecipe.mainInformation.category = recipes[0].mainInformation.category
                         isPresenting = true
                     }, label: {
                         Image(systemName: "plus")
@@ -79,12 +79,12 @@ extension RecipeListView {
     private var navigationTitle: String {
         "\(category.rawValue) Recipes"
     }
-//    func binding(for recipe: Recipe) -> Binding<Recipe> {
-//        guard let index = recipeData.index(of: recipe) else {
-//            fatalError("Recipe not found")
-//        }
-//        return $recipeData.recipes[index]
-//    }
+    func binding(for recipe: Recipe) -> Binding<Recipe> {
+        guard let index = recipeData.index(of: recipe) else {
+            fatalError("Recipe not found")
+        }
+        return $recipeData.recipes[index]
+    }
 }
 
 

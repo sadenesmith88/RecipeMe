@@ -12,7 +12,7 @@ class RecipeData: ObservableObject {
   func recipes(for category: MainInformation.Category) -> [Recipe] {
     var filteredRecipes = [Recipe]()
       for recipe in recipes {
-          if recipe.mainInfo.category == category {
+          if recipe.mainInformation.category == category {
               filteredRecipes.append(recipe)
       }
     }
@@ -25,12 +25,12 @@ class RecipeData: ObservableObject {
         }
     }
     //returns index of a given recipe
-//    func index(of recipe: Recipe) -> Int? {
-//        for i in recipes.indices {
-//            if recipes[i].id == recipe.id {
-//                return i
-//            }
-//        }
-//        return nil
-//    }
+    func index(of recipe: Recipe) -> Int? {
+        for i in recipes.indices {
+            if recipes[i].id == recipe.id {
+                return i
+            }
+        }
+        return nil
+    }
 }

@@ -9,24 +9,25 @@ import Foundation
 
 struct Recipe: Identifiable {
     var id = UUID()
-    var mainInfo: MainInformation
+    
+    var mainInformation: MainInformation
     var ingredients: [Ingredient]
     var directions: [Direction]
     
     //used for user editing purposes
     init() {
-        self.init(mainInfo: MainInformation(name: "", description: "", author: "", category: .breakfast), ingredients: [], directions: [])
+        self.init(mainInformation: MainInformation(name: "", description: "", author: "", category: .breakfast), ingredients: [], directions: [])
     }
     
-    init(mainInfo: MainInformation, ingredients: [Ingredient], directions: [Direction]) {
-        self.mainInfo = mainInfo
+    init(mainInformation: MainInformation, ingredients: [Ingredient], directions: [Direction]) {
+        self.mainInformation = mainInformation
         self.ingredients = ingredients
         self.directions = directions
     }
    
     
     var isValid: Bool {
-        mainInfo.isValid && !ingredients.isEmpty && !directions.isEmpty
+        mainInformation.isValid && !ingredients.isEmpty && !directions.isEmpty
     }
 }
     struct MainInformation {
@@ -47,12 +48,35 @@ struct Recipe: Identifiable {
             !name.isEmpty && !description.isEmpty && !author.isEmpty
         }
     }
+//creating struct for these arrays in recipe
+struct Direction: RecipeComponent {
+    var description: String
+    var isOptional: Bool
+    
+    init(description: String, isOptional: Bool) {
+        self.description = description
+        self.isOptional = isOptional
+    }
+    init() {
+        self.init(description: "", isOptional: false)
+    }
+    
+}
     //creating struct for these arrays in recipe
-    struct Ingredient {
+struct Ingredient: RecipeComponent {
         var name: String
         var quantity: Double
         var unit: Unit
         
+    init(name: String, quantity: Double, unit: Unit) {
+        self.name = name
+        self.quantity = quantity
+        self.unit = unit
+    }
+    init() {
+        self.init(name: "", quantity: 1.0, unit: .none)
+    }
+    
         var description: String {
             //%g suppresses all trailing zeroes
             let formattedQuantity = String(format: "%g", quantity)
@@ -83,18 +107,14 @@ struct Recipe: Identifiable {
         }
     }
     
-    //creating struct for these arrays in recipe
-    struct Direction {
-        var description: String
-        var isOptional: Bool
-    }
+   
 
 
 
 extension Recipe {
     //an arrray of Recipes provided by the community
     static let testRecipes: [Recipe] = [
-        Recipe(mainInfo: MainInformation(name: "Dad's Mashed Potatoes",
+        Recipe(mainInformation: MainInformation(name: "Dad's Mashed Potatoes",
                                                 description: "Buttery salty mashed potatoes!",
                                                 author: "Josh",
                                                 category: .dinner),
@@ -111,7 +131,7 @@ extension Recipe {
                 Direction(description: "Mix vigorously with milk, salt, and butter", isOptional: false)
                ]
         ),
-        Recipe(mainInfo: MainInformation(name: "Beet and Apple Salad",
+        Recipe(mainInformation: MainInformation(name: "Beet and Apple Salad",
                                                 description: "Light and refreshing summer salad made of beets, apples and fresh mint",
                                                 author: "Deb Szajngarten",
                                                 category: .lunch),
@@ -135,7 +155,7 @@ extension Recipe {
                 Direction(description: "Combine all ingredients with lemon juice and olive oil and serve", isOptional: false)
                ]
         ),
-        Recipe(mainInfo: MainInformation(name: "Braised Beef Brisket",
+        Recipe(mainInformation: MainInformation(name: "Braised Beef Brisket",
                                                 description: "Slow cooked brisket in a savory braise that makes an amazing gravy.",
                                                 author: "Deb Szajngarten",
                                                 category: .dinner),
@@ -163,7 +183,7 @@ extension Recipe {
                 Direction(description: "Close the lid and bake at 250 until fork tender (4-6 hrs)", isOptional: false)
                ]
         ),
-        Recipe(mainInfo: MainInformation(name: "Best Brownies Ever",
+        Recipe(mainInformation: MainInformation(name: "Best Brownies Ever",
                                                 description: "Five simple ingredients make these brownies easy to make and delicious to consume!",
                                                 author: "Pam Broda",
                                                 category: .dessert),
@@ -183,7 +203,7 @@ extension Recipe {
                 Direction(description: "Bake for 23-25min - DO NOT OVERBAKE", isOptional: false)
                ]
         ),
-        Recipe(mainInfo: MainInformation(name: "Omelet and Greens",
+        Recipe(mainInformation: MainInformation(name: "Omelet and Greens",
                                                 description: "Quick, crafty omelet with greens!",
                                                 author: "Taylor Murray",
                                                 category: .breakfast),
@@ -209,7 +229,7 @@ extension Recipe {
                 Direction(description: "In a medium bowl, whisk lemon juice, 2 tbs olive oil, toss with spinach and serve with omelet", isOptional: false)
                ]
         ),
-        Recipe(mainInfo: MainInformation(name: "Vegetarian Chili",
+        Recipe(mainInformation: MainInformation(name: "Vegetarian Chili",
                                                 description: "Warm, comforting, and filling vegetarian chili",
                                                 author: "Makeinze Gore",
                                                 category: .lunch),
@@ -245,7 +265,7 @@ extension Recipe {
                 Direction(description: "Serve with cheese, sour cream, and cilantro", isOptional: true)
                ]
         ),
-        Recipe(mainInfo: MainInformation(name: "Classic Shrimp Scampi",
+        Recipe(mainInformation: MainInformation(name: "Classic Shrimp Scampi",
                                                 description: "Simple, delicate shrimp bedded in a delicious set of pasta that will melt your tastebuds!",
                                                 author: "Sarah Taller",
                                                 category: .dinner),
@@ -278,7 +298,7 @@ extension Recipe {
                 Direction(description: "Serve with lemon wedges!", isOptional: true)
                ]
         ),
-        Recipe(mainInfo: MainInformation(name: "Chocolate Billionaires",
+        Recipe(mainInformation: MainInformation(name: "Chocolate Billionaires",
                                                 description: "Chocolate and caramel candies that are to die for!",
                                                 author: "Jack B",
                                                 category: .dessert),
@@ -305,7 +325,7 @@ extension Recipe {
                 Direction(description: "Place on prepared pans and refrigerate until set", isOptional: false)
                ]
         ),
-        Recipe(mainInfo: MainInformation(name: "Mac & Cheese",
+        Recipe(mainInformation: MainInformation(name: "Mac & Cheese",
                                                 description: "Macaroni & Cheese",
                                                 author: "Travis B",
                                                 category: .dinner),
@@ -334,7 +354,7 @@ extension Recipe {
                 Direction(description: "Eat!", isOptional: true)
                ]
         ),
-        Recipe(mainInfo: MainInformation(name: "Veggie Soup",
+        Recipe(mainInformation: MainInformation(name: "Veggie Soup",
                                                 description: "Vegetable Soup",
                                                 author: "Travis B",
                                                 category: .dinner),
@@ -359,7 +379,7 @@ extension Recipe {
                 Direction(description: "Serve with spinach and parmesan cheese", isOptional: true)
                ]
         ),
-        Recipe(mainInfo: MainInformation(name: "White Clam Sauce",
+        Recipe(mainInformation: MainInformation(name: "White Clam Sauce",
                                                 description: "A simple recipe for quick comfort food",
                                                 author: "Henry Minden",
                                                 category: .dinner),
@@ -380,7 +400,7 @@ extension Recipe {
                 Direction(description: "Serve over favorite pasta", isOptional: false)
                ]
         ),
-        Recipe(mainInfo: MainInformation(name: "Granola Bowl",
+        Recipe(mainInformation: MainInformation(name: "Granola Bowl",
                                                 description: "A dense and delicious breakfast",
                                                 author: "Ben",
                                                 category: .breakfast),
@@ -395,7 +415,7 @@ extension Recipe {
                 Direction(description: "Add chocolate chips", isOptional: true),
                ]
         ),
-        Recipe(mainInfo: MainInformation(name: "Banana Bread",
+        Recipe(mainInformation: MainInformation(name: "Banana Bread",
                                                 description: "Easy to put together, and a family favorite!",
                                                 author: "Lisbeth",
                                                 category: .dessert),

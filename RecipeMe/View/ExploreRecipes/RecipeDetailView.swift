@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecipeDetailView: View {
-    let recipe: Recipe
+    @Binding var recipe: Recipe
     //tracks when modifyrecipeview sheet should be presented
     @State private var isPresenting = false
     private let listBackgroundColor = AppColor.background
@@ -16,13 +16,14 @@ struct RecipeDetailView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Author: \(recipe.mainInfo.author)")
+                Text("Author: \(recipe.mainInformation.author)")
                     .font(.subheadline)
                     .padding()
                 Spacer()
             }
             HStack {
-                Text(recipe.mainInfo.description)
+                Text(recipe.mainInformation
+                    .description)
                     .font(.subheadline)
                     .padding()
                 Spacer()
@@ -47,28 +48,32 @@ struct RecipeDetailView: View {
                 }.listRowBackground(listBackgroundColor)
             }
         }
-        .navigationTitle(recipe.mainInfo.name)
-        //        .toolbar {
-        //            ToolbarItem {
-        //                HStack {
-        //                    Button("Edit") {
-        //                        isPresenting = true
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        .sheet(isPresented: $isPresenting) {
-        //            NavigationView {
-        //                ModifyRecipeView(recipe: $recipe)
-        //                    .toolbar {
-        //                        ToolbarItem(placement: .confirmationAction) {
-        //                            Button("Save") {
-        //                                isPresenting = false
-        //                            }
-        //                        }
-        //                    }
-        //                .navigationTitle("Edit Recipe")
-        //            }
+        .navigationTitle(recipe.mainInformation.name)
+        .toolbar {
+            ToolbarItem {
+                HStack {
+                    Button("Edit") {
+                        isPresenting = true
+                    }
+                }
+            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Text("")
+            }
+        }
+        .sheet(isPresented: $isPresenting) {
+            NavigationView {
+                ModifyRecipeView(recipe: $recipe)
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button("Save") {
+                                isPresenting = false
+                            }
+                        }
+                    }
+                    .navigationTitle("Edit Recipe")
+            }
+        }
     }
 }
 
@@ -76,7 +81,7 @@ struct RecipeDetailView_Previews: PreviewProvider {
     @State static var recipe = Recipe.testRecipes[0]
     static var previews: some View {
         NavigationView{
-            RecipeDetailView(recipe: recipe)
+            RecipeDetailView(recipe: $recipe)
         }
     }
 }
