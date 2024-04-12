@@ -13,6 +13,7 @@ struct Recipe: Identifiable {
     var mainInformation: MainInformation
     var ingredients: [Ingredient]
     var directions: [Direction]
+    var isFavorite = false
     
     //used for user editing purposes
     init() {
@@ -23,6 +24,7 @@ struct Recipe: Identifiable {
         self.mainInformation = mainInformation
         self.ingredients = ingredients
         self.directions = directions
+        
     }
    
     
@@ -101,6 +103,8 @@ struct Ingredient: RecipeComponent {
             case cups = "Cups"
             case tbs = "Tablespoon"
             case tsp = "Teaspoon"
+            case serv = "Serving"
+            case item = "Item"
             case none = "No units"
             
             var singularName : String { String(rawValue.dropLast())}

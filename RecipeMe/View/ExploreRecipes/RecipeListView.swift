@@ -11,7 +11,7 @@ struct RecipeListView: View {
     
     //current view and children view can access object with env obj
     @EnvironmentObject  private var recipeData: RecipeData
-    let category: MainInformation.Category
+    let viewStyle: ViewStyle
     
     //default value for sheet presentation
     //trackes if modal view is currently being presented
@@ -36,8 +36,8 @@ struct RecipeListView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         newRecipe = Recipe()
-                        newRecipe.mainInformation.category = recipes[0].mainInformation.category
-                        isPresenting = true
+                        newRecipe.mainInformation.category = recipes.first?.mainInformation.category ?? .breakfast
+                       
                     }, label: {
                         Image(systemName: "plus")
                     })
@@ -55,6 +55,9 @@ struct RecipeListView: View {
                             //ensures the recipes are filled out correctly
                             ToolbarItem(placement: .confirmationAction) {
                                 if newRecipe.isValid {
+//                                    if case .favorites = viewStyle {
+//                                        newRecipe.isFavorite = true
+//                                    }
                                     Button("Add") {
                                         recipeData.add(recipe: newRecipe)
                                         isPresenting = false
@@ -65,20 +68,36 @@ struct RecipeListView: View {
                         .navigationTitle("Add a New Recipe")
                 }
             })
-            
         }
     }
 
 
 
 extension RecipeListView {
+    enum ViewStyle {
+        case favorites
+        case singleCategory(MainInformation.Category)
+    }
+    
     private var recipes: [Recipe] {
-        recipeData.recipes(for: category)
+        switch viewStyle {
+        case let .singleCategory(category):
+            return recipeData.recipes(for: category)
+        case .favorites:
+            return recipeData.favoriteRecipes
+        }
+//        recipeData.recipes(for: category)
     }
+
   
-    private var navigationTitle: String {
-        "\(category.rawValue) Recipes"
+private var navigationTitle: String {
+    switch viewStyle {
+    case let .singleCategory(category):
+        return "\(category.rawValue) Recipes"
+    case .favorites:
+        return "Favorite Recipes"
     }
+}
     func binding(for recipe: Recipe) -> Binding<Recipe> {
         guard let index = recipeData.index(of: recipe) else {
             fatalError("Recipe not found")
@@ -91,7 +110,7 @@ extension RecipeListView {
 struct RecipeListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            RecipeListView(category: .breakfast)
+            RecipeListView(viewStyle: .singleCategory(.breakfast))
         }  .environmentObject(RecipeData())
     }
     

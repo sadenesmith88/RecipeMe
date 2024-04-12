@@ -8,7 +8,11 @@ import Foundation
 
 class RecipeData: ObservableObject {
   @Published var recipes = Recipe.testRecipes
-  
+    
+    var favoriteRecipes: [Recipe] {
+        recipes.filter { $0.isFavorite }
+    }
+    
   func recipes(for category: MainInformation.Category) -> [Recipe] {
     var filteredRecipes = [Recipe]()
       for recipe in recipes {
