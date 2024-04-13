@@ -31,6 +31,13 @@ struct Recipe: Identifiable {
     var isValid: Bool {
         mainInformation.isValid && !ingredients.isEmpty && !directions.isEmpty
     }
+    //if excludingOptionalDirections is true then directions will include directions that are not optional
+    //if false then directions will include optional and nonptional directions
+    func index(of direction: Direction, excludingOptionalDirections: Bool) -> Int? {
+        let directions = directions.filter { excludingOptionalDirections ? !$0.isOptional : true }
+        let index = directions.firstIndex { $0.description == direction.description }
+        return index
+    }
 }
     struct MainInformation {
         var name: String

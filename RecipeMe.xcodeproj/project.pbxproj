@@ -21,6 +21,7 @@
 		CEC475FA2BC894E600D621E6 /* ModifyIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC475F92BC894E600D621E6 /* ModifyIngredientView.swift */; };
 		CEC475FC2BC894F300D621E6 /* ModifyMainInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC475FB2BC894F300D621E6 /* ModifyMainInformationView.swift */; };
 		CEC475FE2BC8EC7100D621E6 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC475FD2BC8EC7100D621E6 /* MainTabView.swift */; };
+		CEC476022BCA1AF800D621E6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC476012BCA1AF800D621E6 /* SettingsView.swift */; };
 		CEF088462BC772570020E75C /* ModifyRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF088452BC772570020E75C /* ModifyRecipeView.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		CEC475F92BC894E600D621E6 /* ModifyIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyIngredientView.swift; sourceTree = "<group>"; };
 		CEC475FB2BC894F300D621E6 /* ModifyMainInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyMainInformationView.swift; sourceTree = "<group>"; };
 		CEC475FD2BC8EC7100D621E6 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		CEC476012BCA1AF800D621E6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		CEF088452BC772570020E75C /* ModifyRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyRecipeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +108,7 @@
 				CEF088442BC772230020E75C /* ModifyRecipes */,
 				CEF088432BC771DB0020E75C /* ExploreRecipes */,
 				CEC475FD2BC8EC7100D621E6 /* MainTabView.swift */,
+				CEC476012BCA1AF800D621E6 /* SettingsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				CEC475FC2BC894F300D621E6 /* ModifyMainInformationView.swift in Sources */,
 				CEC475F82BC894D700D621E6 /* ModifyDirectionView.swift in Sources */,
 				CE5CDBFF2BC5F49E00186930 /* RecipeData.swift in Sources */,
+				CEC476022BCA1AF800D621E6 /* SettingsView.swift in Sources */,
 				CEC475FE2BC8EC7100D621E6 /* MainTabView.swift in Sources */,
 				CEC475FA2BC894E600D621E6 /* ModifyIngredientView.swift in Sources */,
 				CEF088462BC772570020E75C /* ModifyRecipeView.swift in Sources */,
